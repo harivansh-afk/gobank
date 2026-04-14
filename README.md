@@ -1,1 +1,1 @@
-rawdogging go + jj for fun
+rawdogging go json api with jj for fun
