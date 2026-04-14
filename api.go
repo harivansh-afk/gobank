@@ -21,8 +21,8 @@ type ApiError struct {
 	Error string
 }
 
-func makeHTTPHandleFunc(f apiFunc) http.HandleFunc {
-	return func(w *http.ResponseWriter, r *http.Request) {
+func makeHTTPHandleFunc(f apiFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
 		if err := f(w, r); err != nil {
 			WriteJSON(w, http.StatusBadRequest, ApiError{Error: err.Error()})
 		}
@@ -55,7 +55,7 @@ func (s *APIServer) handlAccount(w http.ResponseWriter,r *http.Request) error {
 	}
 
 	if r.Method == "POST" {
-		return s.handleCreateAccount(w, r)
+		return s.handlCreateAccount(w, r)
 	}
 
 	if r.Method == "DELETE" {
